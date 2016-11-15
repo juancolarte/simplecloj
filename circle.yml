@@ -10,6 +10,6 @@ deployment:
       - lein uberjar
       - git config user.email "colarte@barrista-v.com"
       - git config user.name "devops"
-      - git add -f target/uberjar/hello-world.jar
+      - git add -f target/hello-world.jar
       - git commit -m "devops lab"
       - eb deploy --profile default
