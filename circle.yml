@@ -13,3 +13,12 @@ deployment:
       - git add -f target/hello-world.jar
       - git commit -m "devops lab"
       - eb deploy --profile default
+  staging:
+    branch: staging
+    commands:
+      - lein uberjar
+      - git config user.email "colarte@barrista-v.com"
+      - git config user.name "devops"
+      - git add -f target/hello-world.jar
+      - git commit -m "devops lab"
+      - eb deploy --profile default
