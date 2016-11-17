@@ -1,10 +1,12 @@
 branch-defaults:
-  staging:
-    environment: staging2
+  target-env:
+    environment: simplecloj-target-env
 global:
   application_name: simplecloj
+  branch: null
   default_ec2_keyname: mac
   default_platform: 64bit Amazon Linux 2015.03 v1.4.6 running Docker 1.6.2
   default_region: us-east-1
   profile: eb-cli
+  repository: null
   sc: git

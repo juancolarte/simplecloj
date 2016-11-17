@@ -8,7 +8,7 @@ deployment:
     branch: master
     commands:
       - lein uberjar
-      - git config user.email "colarte@barrista-v.com"
+      - git config user.email "colarte@barista-v.com"
       - git config user.name "devops"
       - git add -f target/hello-world.jar
       - git commit -m "devops lab"
@@ -17,8 +17,9 @@ deployment:
     branch: staging
     commands:
       - lein uberjar
-      - git config user.email "colarte@barrista-v.com"
+      - git config user.email "colarte@barista-v.com"
       - git config user.name "devops"
       - git add -f target/hello-world.jar
       - git commit -m "devops lab"
+      - sed -i 's/target-env/staging/g' ss/.elasticbeanstalk/config.yml
       - eb deploy --profile default
