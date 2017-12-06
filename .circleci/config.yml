@@ -9,4 +9,4 @@ jobs:
        - run: lein uberjar
        - store_artifacts:
            path: target/hello-world.jar
-           destination: uberjar
+           destination: hello-world.jar
