@@ -3,10 +3,19 @@ jobs:
    build:
      docker:
        - image: circleci/clojure:lein-2.7.1
+       - image: mysql:5.7
+         environment:
+           MYSQL_ROOT_PASSWORD : zo8keiPaex
+           MYSQL_DATABASE : stagingstore
+
      steps:
        - checkout
-       - run: lein deps
-       - run: lein uberjar
-       - store_artifacts:
-           path: target/hello-world.jar
-           destination: hello-world.jar
+       - run:
+          name: Install System Dependencies
+          command: apt-get update -qq && apt-get install -y mysql-client
+       - run: mysql -A -uroot -h 127.0.0.1 -uroot -pzo8keiPaex -e "show databases"
+#       - run: lein deps
+#       - run: lein uberjar
+#       - store_artifacts:
+#           path: target/hello-world.jar
+#           destination: hello-world.jar

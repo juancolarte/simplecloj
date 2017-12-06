@@ -6,6 +6,8 @@
 (defroutes myapp
   (GET "/" [] "Hola esto es staging branch carajo"))
 
+(println "juan paso por aca")
+
 (defn -main []
   (let [port (Integer/parseInt (or (System/getenv "PORT") "8080"))]
     (run-server myapp {:port port})
