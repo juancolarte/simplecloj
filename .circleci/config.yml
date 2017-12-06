@@ -3,20 +3,25 @@ jobs:
    build:
      docker:
        - image: circleci/clojure:lein-2.7.1
-       - image: mysql:5.7
-         environment:
-         - MYSQL_ROOT_PASSWORD=zo8keiPaex
-         - MYSQL_DATABASE=stagingstore
+#       - image: mysql:5.7
+#         environment:
+#         - MYSQL_ROOT_PASSWORD=zo8keiPaex
+#         - MYSQL_DATABASE=stagingstore
 
      steps:
-      - run:
-          name: Wait for db
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+       - run:
+           name: test environment vars
+           command: env
+         environment:
+           DATABASE_URL="jdbc://root@localhost:3306/stagingstore"
+#      - run:
+#          name: Wait for db
+#          command: dockerize -wait tcp://localhost:3306 -timeout 1m
 #       - checkout
-      - run:
-          name: Install System Dependencies
-          command: sudo apt-get update -qq && sudo apt-get install -y mysql-client
-      - run: mysql -A -uroot -h 127.0.0.1 -uroot -pzo8keiPaex -e "show databases"
+#      - run:
+#          name: Install System Dependencies
+#          command: sudo apt-get update -qq && sudo apt-get install -y mysql-client
+#      - run: mysql -A -uroot -h 127.0.0.1 -uroot -pzo8keiPaex -e "show databases"
 #       - run: lein deps
 #       - run: lein uberjar
 #       - store_artifacts:
