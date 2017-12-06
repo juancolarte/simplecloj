@@ -13,7 +13,7 @@ jobs:
          name: test environment vars
          command: env
          environment:
-         - DATABASE_URL="jdbc://root@localhost:3306/stagingstore"
+          DATABASE_URL : "jdbc://root@localhost:3306/stagingstore"
 #      - run:
 #          name: Wait for db
 #          command: dockerize -wait tcp://localhost:3306 -timeout 1m
