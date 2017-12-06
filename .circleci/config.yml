@@ -9,14 +9,19 @@ jobs:
          - MYSQL_DATABASE=stagingstore
 
      steps:
-        - run: docker ps 
-        - run: sleep 50
-        - run: docker ps
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
 #       - checkout
-#       - run:
-#          name: Install System Dependencies
-#          command: sudo apt-get update -qq && sudo apt-get install -y mysql-client
-#       - run: mysql -A -uroot -h 127.0.0.1 -uroot -pzo8keiPaex -e "show databases"
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update -qq && sudo apt-get install -y mysql-client
+      - run: mysql -A -uroot -h 127.0.0.1 -uroot -pzo8keiPaex -e "show databases"
 #       - run: lein deps
 #       - run: lein uberjar
 #       - store_artifacts:
