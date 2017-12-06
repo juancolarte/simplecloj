@@ -9,9 +9,9 @@ jobs:
          - MYSQL_DATABASE=stagingstore
 
      steps:
-        - run: sudo docker ps 
+        - run: docker ps 
         - run: sleep 50
-        - run: sudo docker ps
+        - run: docker ps
 #       - checkout
 #       - run:
 #          name: Install System Dependencies
