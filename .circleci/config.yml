@@ -5,14 +5,8 @@ jobs:
        - image: circleci/clojure:lein-2.7.1
      steps:
        - checkout
-      - restore_cache:
-          key: simplecloj-{{ checksum "project.clj" }}
-      - run: lein deps
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: simplecloj-{{ checksum "project.clj" }}
-      - run: lein uberjar
-      - store_artifacts:
-          path: target/uberjar/hello-world.jar
-          destination: uberjar
+       - run: lein deps
+       - run: lein uberjar
+       - store_artifacts:
+           path: target/uberjar/hello-world.jar
+           destination: uberjar
