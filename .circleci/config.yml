@@ -9,11 +9,14 @@ jobs:
          - MYSQL_DATABASE=stagingstore
 
      steps:
-       - checkout
-       - run:
-          name: Install System Dependencies
-          command: sudo apt-get update -qq && sudo apt-get install -y mysql-client
-       - run: mysql -A -uroot -h 127.0.0.1 -uroot -pzo8keiPaex -e "show databases"
+        - run: sudo docker ps 
+        - run: sleep 50
+        - run: sudo docker ps
+#       - checkout
+#       - run:
+#          name: Install System Dependencies
+#          command: sudo apt-get update -qq && sudo apt-get install -y mysql-client
+#       - run: mysql -A -uroot -h 127.0.0.1 -uroot -pzo8keiPaex -e "show databases"
 #       - run: lein deps
 #       - run: lein uberjar
 #       - store_artifacts:
