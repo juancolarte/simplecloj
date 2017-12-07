@@ -1,21 +1,24 @@
-defaults: &defaults
-  docker:
-    - image: circleci/clojure:lein-2.7.1
-    - image: mysql:5.7
-        environment:
-        - MYSQL_ROOT_PASSWORD=zo8keiPaex
-        - MYSQL_DATABASE=lenny_test
+
 
 version: 2
 jobs:
+
+
   set_build:
-    <<: *defaults
+    docker:
+      - image: circleci/clojure:lein-2.7.1
+
     steps:
       - checkout
       - run: lein deps
 
   test: 
-    <<: *defaults
+    docker:
+      - image: circleci/clojure:lein-2.7.1
+      - image: mysql:5.7
+          environment:
+          - MYSQL_ROOT_PASSWORD=zo8keiPaex
+          - MYSQL_DATABASE=lenny_test
     steps:
       - run:
           name: Wait for db
