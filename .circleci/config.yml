@@ -1,5 +1,4 @@
-version: 2
-
+# circlevi v2 config
 defaults: &defaults
   docker:
     - image: circleci/clojure:lein-2.7.1
@@ -9,6 +8,7 @@ defaults: &defaults
         - MYSQL_DATABASE=lenny_test
 
 
+version: 2
 jobs:
   builder:
     <<: *defaults
