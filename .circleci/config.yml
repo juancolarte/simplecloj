@@ -1,3 +1,5 @@
+version: 2
+
 # circlevi v2 config
 defaults: &defaults
   docker:
@@ -8,7 +10,7 @@ defaults: &defaults
         - MYSQL_DATABASE=lenny_test
 
 
-version: 2
+
 jobs:
   builder:
     <<: *defaults
