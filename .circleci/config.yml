@@ -1,8 +1,17 @@
 version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/clojure:lein-2.7.1
+    - image: mysql:5.7
+        environment:
+        - MYSQL_ROOT_PASSWORD=zo8keiPaex
+        - MYSQL_DATABASE=lenny_test
+
+
 jobs:
   builder:
-    docker:
-      - image: circleci/clojure:lein-2.7.1
+    <<: *defaults
     steps:
       - checkout
       - run: 
@@ -11,12 +20,7 @@ jobs:
           environment:
           - DATABASE_URL: "jdbc:mysql://localhost/lenny_test?user=root&password=zo8keiPaex"
   test: 
-    docker:
-      - image: circleci/clojure:lein-2.7.1
-      - image: mysql:5.7
-        environment:
-        - MYSQL_ROOT_PASSWORD=zo8keiPaex
-        - MYSQL_DATABASE=stagingstore
+    <<: *defaults
     steps:
       - run: ls
 
