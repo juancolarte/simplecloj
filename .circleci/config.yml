@@ -3,6 +3,7 @@ jobs:
   dependencies:
     docker:
       - image: circleci/clojure:lein-2.7.1
+    working_directory: ~/simplecloj
     steps:
       - checkout
       - run: lein deps
@@ -13,6 +14,7 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: zo8keiPaex
           MYSQL_DATABASE: lenny_test
+    working_directory: ~/simplecloj
     steps:
       - run: 
           name: Wait for db
@@ -26,7 +28,7 @@ jobs:
   uberjar:
     docker:
       - image: circleci/clojure:lein-2.7.1
-
+    working_directory: ~/simplecloj
     steps:
       - run: lein uberjar
 
