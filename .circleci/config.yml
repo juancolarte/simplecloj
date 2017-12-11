@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  dependencies:
+  build:
     docker:
       - image: circleci/clojure:lein-2.7.1
       - image: mysql:5.7
