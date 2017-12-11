@@ -3,19 +3,13 @@ jobs:
   dependencies:
     docker:
       - image: circleci/clojure:lein-2.7.1
-    working_directory: ~/simplecloj
-    steps:
-      - checkout
-      - run: lein deps
-  test: 
-    docker:
-      - image: circleci/clojure:lein-2.7.1
       - image: mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: zo8keiPaex
           MYSQL_DATABASE: lenny_test
-    working_directory: ~/simplecloj
     steps:
+      - checkout
+      - run: lein deps
       - run: 
           name: Wait for db
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
@@ -25,21 +19,4 @@ jobs:
           environment:
           - DATABASE_URL: "jdbc:mysql://localhost/lenny_test?user=root&password=zo8keiPaex"
 
-  uberjar:
-    docker:
-      - image: circleci/clojure:lein-2.7.1
-    working_directory: ~/simplecloj
-    steps:
       - run: lein uberjar
-
-workflows:
-  version: 2
-  checkout-test-uberjar:
-    jobs:
-      - dependencies
-      - test:
-          requires:
-            - dependencies
-      - uberjar:
-          requires:
-            - test
