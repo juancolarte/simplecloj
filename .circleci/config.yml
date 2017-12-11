@@ -1,15 +1,11 @@
 version: 2
 jobs:
-  builder:
+  dependencies:
     docker:
       - image: circleci/clojure:lein-2.7.1
     steps:
       - checkout
-      - run: 
-          name: Run Application Tests
-          command: env
-          environment:
-          - DATABASE_URL: "jdbc:mysql://localhost/lenny_test?user=root&password=zo8keiPaex"
+      - run: lein deps
   test: 
     docker:
       - image: circleci/clojure:lein-2.7.1
@@ -18,13 +14,30 @@ jobs:
           MYSQL_ROOT_PASSWORD: zo8keiPaex
           MYSQL_DATABASE: lenny_test
     steps:
-      - run: ls
+      - run: 
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run:
+          name: Run Application Tests
+          command: env
+          environment:
+          - DATABASE_URL: "jdbc:mysql://localhost/lenny_test?user=root&password=zo8keiPaex"
+
+  uberjar:
+    docker:
+      - image: circleci/clojure:lein-2.7.1
+
+    steps:
+      - run: lein uberjar
 
 workflows:
   version: 2
-  build-test:
+  checkout-test-uberjar:
     jobs:
-      - builder
+      - dependencies
       - test:
           requires:
-            - builder
+            - dependencies
+      - uberjar:
+          requires:
+            - test
