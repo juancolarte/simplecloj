@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/clojure:lein-2.7.1
+    steps:
+      - checkout
+      - run: lein deps
+      - run: lein uberjar
+      - run: 
+          name: Install Python Pip
+          command: sudo apt-get update -qq && sudo apt-get install -y python-pip
+      - run: 
+          name: Install awsebcli
+          command: sudo pip install awsebcli
+      - run:
+          name: Add jar to git repo for Beanstalk deploy.
+          command: | 
+            git config user.email "colarte@barista-v.com"
+            git config user.name "devops"
+            git add -f target/hello-world.jar
+            git commit -m $CIRCLE_BUILD_URL
+      - run:
+          name: Maybe Deploy
+          command: eb deploy --profile default ;
+
+
