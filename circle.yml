@@ -1,18 +1,22 @@
-machine:
-  services:
-    - docker
-
 dependencies:
   pre:
-    - sudo rm -fr /var/lib/apt/lists/*
-    - sudo apt-get clean
     - sudo apt-get update
     - sudo apt-get install python-dev
+    - sudo apt-get install curl
+    - sudo pip install --ignore-installed six
+    - sudo pip install packaging
+    - sudo pip install appdirs
     - sudo pip install awsebcli
 
+
 deployment:
-  production:
+  master:
     branch: master
     commands:
       - lein uberjar
-      - docker version
+      - git config user.email "colarte@barista-v.com"
+      - git config user.name "devops"
+      - git add -f target/hello-world.jar
+      - git commit -m $CIRCLE_BUILD_URL
+      - eb deploy --profile default
+
