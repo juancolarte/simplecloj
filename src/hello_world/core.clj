@@ -4,7 +4,7 @@
   (:gen-class))
 
 (defroutes myapp
-  (GET "/" [] "Hola esto es staging branch carajo"))
+  (GET "/" [] "Hola esto es la nueva version branch carajo"))
 
 (defn -main []
   (let [port (Integer/parseInt (or (System/getenv "PORT") "8080"))]
