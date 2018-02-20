@@ -8,7 +8,8 @@
 (defroutes myapp
   (GET "/" [] "Hola from packer and terraform")
   (GET "/env" [] (:out (sh/sh "env")))
-  (GET "/co" [] "Colombia "))
+  (GET "/co" [] "Colombia ")
+  (GET "/otra" [] "Otra cosa"))
 
 
 (defn -main []
