@@ -6,8 +6,9 @@
   (:gen-class))
 
 (defroutes myapp
-  (GET "/" [] "Hola esto es la nueva version branch carajo")
-  (GET "/env" [] (:out (sh/sh "env"))))
+  (GET "/" [] "Hola from packer and terraform")
+  (GET "/env" [] (:out (sh/sh "env")))
+  (GET "/co" [] "Colombia "))
 
 
 (defn -main []
