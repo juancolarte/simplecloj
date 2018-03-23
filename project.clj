@@ -9,6 +9,7 @@
   :aot [hello-world.core]
 
 
+
   :jvm-opts ["-server"]
   :profiles
   {:uberjar {:omit-source true
