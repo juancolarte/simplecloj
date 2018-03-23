@@ -28,7 +28,7 @@ jobs:
           name: Maybe Deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-	      curl -i -u "$JENKINSAUTH" http://jenkins.snifflelab.net:8080/job/demojob/build?token=$JENKINSTOKEN 
+              curl -i -u "$JENKINSAUTH" http://jenkins.snifflelab.net:8080/job/demojob/build?token=$JENKINSTOKEN ;
             else
               echo "Not deploying branches other than develop";
             fi
