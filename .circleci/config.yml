@@ -3,7 +3,25 @@ jobs:
   build:
     docker:
       - image: circleci/clojure:lein-2.7.1
+
     steps:
       - run: |
           VERSION=$( echo $GIT_BRANCH |sed 's@feature/@@' )
-          echo VERSION
+          echo $VERSION
+
+      - run:
+          name: make deploy
+          command: |
+            strfeature="feature/"
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "in master"
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              echo "in staging"
+            elif [[ "${CIRCLE_BRANCH}" == *$strfeature* ]]; then
+              echo "in ephemeral"
+            else
+              echo "Not deploying branches other than master/staging";
+            fi
+
+
+
