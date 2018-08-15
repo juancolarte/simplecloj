@@ -2,21 +2,23 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/clojure:lein-2.7.1
-      - image: mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: zo8keiPaex
-          MYSQL_DATABASE: lenny_test
+      - image: circleci/node:9.6.1
+
     steps:
       - checkout
-      - run: lein deps
-      - run: 
-          name: Wait for db
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      - run:
-          name: Run Application Tests
-          command: env
-          environment:
-          - DATABASE_URL: "jdbc:mysql://localhost/lenny_test?user=root&password=zo8keiPaex"
 
-      - run: lein uberjar
+      - run: 
+          name: install lsb-release package
+          command: sudo apt-get install -y lsb-release curl
+
+      - run: 
+          name: install google cloud sdk 
+          command: |
+            export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+            echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+            curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+            sudo apt-get update && sudo apt-get install google-cloud-sdk
+
+      - run: 
+          name: test gcloud 
+          command: gcloud --version
