@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
 
+      - restore_cache: # gcloud install cache
+          key: gcloud-cache
+        
       - run: 
           name: install lsb-release package
           command: sudo apt-get install -y lsb-release curl
@@ -19,6 +22,14 @@ jobs:
             curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
             sudo apt-get update && sudo apt-get install google-cloud-sdk
 
+      - save_cache: # cache for gcloud install
+          key: gcloud-cache
+          paths:
+          - /usr/lib/google-cloud-sdk
+          - /usr/bin
+          - /usr/include
+
       - run: 
           name: test gcloud 
           command: gcloud --version
+
