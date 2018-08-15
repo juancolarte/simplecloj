@@ -6,7 +6,7 @@ jobs:
 
     steps:
       - run: |
-          VERSION=$( echo $GIT_BRANCH |sed 's@feature/@@' )
+          VERSION=$( echo $CIRCLE_BRANCH |sed 's@feature/@@' )
           echo $VERSION
 
       - run:
