@@ -18,6 +18,7 @@ jobs:
             elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
               echo "in staging"
             elif [[ "${CIRCLE_BRANCH}" == *$strfeature* ]]; then
+              echo "two echos"
               echo "in ephemeral"
             else
               echo "Not deploying branches other than master/staging";
